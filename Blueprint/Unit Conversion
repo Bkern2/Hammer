@@ -1,1 +1,9 @@
 
+
+GridX = floor(ScreenX/(ScreenX/GridNumSpaces))
+GridY = floor(ScreenY/(ScreenY/GridNumSpaces))
+
+ScreenX = GridX*(ScreenX/GridNumSpaces)
+ScreenY = GridY*(ScreenY/GridNumSpaces)
+
+ScaleX
