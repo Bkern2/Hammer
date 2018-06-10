@@ -1,7 +1,7 @@
 @name H.A.M.M.E.R (Backup)
 @inputs Up Down
 @outputs Row Column Index
-@persist Scale2:vector2 Object:array V5:vector2 V6:vector2 Vert1:vector2 Vert2:vector2 Vert3:vector2 I Valid2 Search ScrSize:vector2 IV:vector2 IS:vector2 Count Shape Push3 Push2 Push Int2 Scale:vector2 Grid X Y ScrX ScrY Screen:wirelink Valid Int Cursor:vector2 Column Row Click Mode V1:vector2 V2:vector2 V3:vector2 V4:vector2 Pos:vector2
+@persist Triangle Scale2:vector2 Object:array V5:vector2 V6:vector2 Vert1:vector2 Vert2:vector2 Vert3:vector2 I Valid2 Search ScrSize:vector2 IV:vector2 IS:vector2 Count Shape Push3 Push2 Push Int2 Scale:vector2 Grid X Y ScrX ScrY Screen:wirelink Valid Int Cursor:vector2 Column Row Click Mode V1:vector2 V2:vector2 V3:vector2 V4:vector2 Pos:vector2
 #[
 VARIABLE DICTIONARY:
 
