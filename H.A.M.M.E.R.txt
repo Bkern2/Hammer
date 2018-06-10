@@ -336,18 +336,16 @@ if(Count> ((Grid-1)^2) + 1 + Valid) {
     if(I < (Count + !Valid) - (2 + ((Grid-1)^2))) {
 
 I=I+1
-    
-    
-    #Column = ceil(Cursor:x()/(ScrX/(Grid)))
-    #Row = floor(Cursor:y()/(ScrY/(Grid-1)))
+    #Column = round(Cursor:x()/(ScrX/(Grid)))
+    #Row = round(Cursor:y()/(ScrY/(Grid-1)))
     
     if(Screen:egpPos(I+2+(Grid-1)^2)!=vec2(0,0)&Screen:egpPos(I+2+(Grid-1)^2)!=vec2(0,0)) {Triangle=0}else{Triangle=1}
     
     if(Object[I,string]=="triangle") { 
 
-Vert1 = ceil(Screen:egpVertices(I+2+((Grid-1)^2))[1,vector2]/(ScrSize/(Grid)))
-Vert2 = ceil(Screen:egpVertices(I+2+((Grid-1)^2))[2,vector2]/(ScrSize/(Grid)))
-Vert3 = ceil(Screen:egpVertices(I+2+((Grid-1)^2))[3,vector2]/(ScrSize/(Grid)))
+Vert1 = round(Screen:egpVertices(I+2+((Grid-1)^2))[1,vector2]/(ScrSize/(Grid)))
+Vert2 = round(Screen:egpVertices(I+2+((Grid-1)^2))[2,vector2]/(ScrSize/(Grid)))
+Vert3 = round(Screen:egpVertices(I+2+((Grid-1)^2))[3,vector2]/(ScrSize/(Grid)))
 
 print(I+","+Vert1:toString()+" "+Vert2:toString()+" "+Vert3:toString())
  
