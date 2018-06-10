@@ -1,0 +1,49 @@
+@name Scanner
+@persist R:ranger EGP:wirelink X Y A:array B Slope
+
+if(first()|dupefinished()) {
+EGP=entity():isWeldedTo():wirelink()
+EGP:egpClear()
+
+holoCreate(1)
+
+rangerHitEntities(1)
+rangerDefaultZero(1)
+rangerFilter(array(owner(),entity(),entity():isWeldedTo(),holoEntity(1)))
+
+
+runOnTick(1)
+
+X=0
+Y=1
+
+}
+
+
+
+
+if(X<1000) {
+X=X+1
+}
+
+R=rangerOffset(entity():pos()+vec(0,5*X,50),entity():pos()+vec(1000,5*X,50))
+holoPos(1,R:pos())
+
+if(B!=0) {Slope = B - R:distance()}
+
+if(changed(floor(R:distance()))&R:distance()>0) {
+if(abs($Slope)>1|A:count()<2) {
+A[A:count()+1,vector2]= ((vec2(X*5,R:distance()))/(vec2(1000,1000)/(2*EGP:egpSize())))+(EGP:egpSize()/2)
+}
+else {
+A[A:count(),vector2]= ((vec2(X*5,R:distance()))/(vec2(1000,1000)/(2*EGP:egpSize())))+(EGP:egpSize()/2)
+}
+EGP:egpLineStrip(1,A)    
+}
+
+
+if(R:hitWorld()) {print(Slope)}
+
+
+B=R:distance()
+
