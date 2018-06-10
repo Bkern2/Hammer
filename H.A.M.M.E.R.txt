@@ -1,0 +1,375 @@
+@name H.A.M.M.E.R
+@inputs Up Down
+@outputs Row Column Index
+@persist Scale2:vector2 Object:array Triangle V5:vector2 V6:vector2 Vert1:vector2 Vert2:vector2 Vert3:vector2 I Valid2 Search ScrSize:vector2 IV:vector2 IS:vector2 Count Shape Push3 Push2 Push Int2 Scale:vector2 Grid X Y ScrX ScrY Screen:wirelink Valid Int Cursor:vector2 Column Row Click Mode V1:vector2 V2:vector2 V3:vector2 V4:vector2 Pos:vector2
+
+runOnTick(1)
+
+
+if(first()|dupefinished()) {
+Grid = 10
+Int2 = (Grid-1)*(Grid-1)+3
+X=1
+Y=1
+I=0
+
+Shape=0
+Screen = entity():isWeldedTo():wirelink()
+if(Screen:egpNumObjects()>0) {Screen:egpClear()}
+
+Screen:egpBox(1,Screen:egpSize()/2,Screen:egpSize())
+Screen:egpColor(1,vec(100,100,100))
+
+ScrX=Screen:egpSize():x()
+ScrY=Screen:egpSize():y()
+ScrSize=Screen:egpSize()
+Valid=0
+}
+
+
+
+
+
+
+if(Up&!Push2) {
+Grid=Grid-1
+Push2=1
+}
+if(Down&!Push2) {
+Grid=Grid+1
+Push2=1
+}
+if(!Up&!Down){Push2=0}
+
+if(changed(Grid)) {
+Int2 = (Grid-1)*(Grid-1)+3
+X=1
+Y=1
+Shape=1
+Screen = entity():isWeldedTo():wirelink()
+if(Screen:egpNumObjects()>0) {Screen:egpClear()}
+
+Screen:egpBox(1,Screen:egpSize()/2,Screen:egpSize())
+Screen:egpColor(1,vec(100,100,100))
+
+ScrX=Screen:egpSize():x()
+ScrY=Screen:egpSize():y()
+
+Valid=0
+Valid2=0
+}
+
+#Grid
+if(Y<Grid) {
+    if(X<Grid) 
+    {
+        
+    Screen:egpBox(Screen:egpNumObjects()+1,vec2(X*(ScrX/Grid),Y*(ScrY/Grid)),Screen:egpSize()/(Grid+1))
+    Screen:egpColor(Screen:egpNumObjects(),vec(0,255,0))
+    X=X+1
+    }
+    else
+    {
+    Y=Y+1
+    X=1
+    }
+
+}
+else {
+
+#Cursor
+if(owner():aimEntity()==entity():isWeldedTo()) {
+    
+    if(owner():keyPressed("mouse_middle")) {
+    if(!Push3) {
+    Shape=mod(Shape+1,5)
+    print(Shape)
+    Push3=1
+    }
+    
+}else{Push3=0}
+
+Cursor=Screen:egpCursor(owner())
+    
+    Column = floor(Cursor:x()/(ScrX/(Grid)))
+    Row = floor(Cursor:y()/(ScrY/(Grid-1)))
+    
+    Index = Column + (Row*(Grid-1)) + 1
+
+    if(!Valid) {
+if((changed(Index)|changed(Shape))&Index>2&Index<=((Grid-1)*(Grid-1)+1)) {
+    if(Shape==0){
+    Screen:egpBox((Grid-1)*(Grid-1)+2,Screen:egpPos(Index),Screen:egpSize()/(Grid+1))
+    }
+    if(Shape==1){
+    Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)))
+    }
+    
+    Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2))
+    
+    if(Shape==2){
+    Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)))
+    } 
+    if(Shape==3){
+    Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)))
+    }
+    if(Shape==4){
+    Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)))
+    }
+
+    Screen:egpColor((Grid-1)*(Grid-1)+2,vec(0,150,0))
+
+    Valid=1
+}
+}
+
+if(changed(Shape)) {
+Valid = 0
+Screen:egpRemove((Grid-1)*(Grid-1)+2)
+
+}
+
+if(Valid) {
+if(Shape>0){
+if(Shape==1) {
+Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)))
+#down=+
+#up=-
+#0 = (-x,-y) (-x,y) (x,y) 
+#90 = (x,y) (x,y) (x,y) 
+#180 = (x,y) (x,y) (x,y) 
+#270 = (x,y) (x,y) (x,y) 
+
+#-X,-Y     X,-Y
+#
+#
+#-X,Y      X,Y
+
+
+}
+if(Shape==2) {
+Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)))
+
+}
+if(Shape==3) {
+Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)))
+
+}
+if(Shape==4) {
+Screen:egpTriangle((Grid-1)*(Grid-1)+2,Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)),Screen:egpPos(Index)+ vec2(-((Screen:egpSize():x()/((Grid+1)))/2),-((Screen:egpSize():y()/((Grid+1)))/2)))
+
+}
+
+
+}
+else {
+Screen:egpPos((Grid-1)*(Grid-1)+2,Screen:egpPos(Index))
+}
+
+if(Index<=1|Index>((Grid-1)*(Grid-1)+1)) {
+
+
+Screen:egpRemove((Grid-1)*(Grid-1)+2)
+Valid = 0
+
+}
+}
+
+}
+else {
+if(Valid) {
+
+Screen:egpRemove((Grid-1)*(Grid-1)+2)
+Valid = 0
+
+}
+}
+
+#Select
+if(owner():keyAttack1()&!Click&Valid&owner():weapon():type()=="none") {
+if(Mode==0) {
+V1 = vec2(Column,Row)
+    
+
+}
+if(Mode==1) {
+V2 = vec2(Column,Row)
+
+if(V1:x()>V2:x()) {
+if(V1:y()>V2:y()) {
+V3=vec2(V2:x(),V2:y())
+V4=vec2(V1:x(),V1:y())
+}
+else {
+V3=vec2(V2:x(),V1:y())
+V4=vec2(V1:x(),V2:y())
+}
+}
+else {
+if(V1:y()>V2:y()) {
+V3=vec2(V1:x(),V2:y())
+V4=vec2(V2:x(),V1:y())
+}
+else {
+V3=vec2(V1:x(),V1:y())
+V4=vec2(V2:x(),V2:y())
+}
+
+}
+
+print((V3+vec2(0,1)):toString()+"  "+(V4+vec2(0,1)):toString())
+    
+    Scale=(Screen:egpSize()/(Grid+1))+(Screen:egpPos(V4:x()+(V4:y()*(Grid-1))+1)-Screen:egpPos(V3:x()+(V3:y()*(Grid-1))+1))
+    Pos=(Screen:egpPos(V3:x()+(V3:y()*(Grid-1))+1)+(Scale/2))-(Screen:egpSize()/(2*(Grid+1)))
+
+
+if(Shape==0) {
+Screen:egpBox(Int2,Pos,Scale)
+Object[Object:count()+1,string]="box"
+}
+
+# X3,Y3    X4,Y3
+#
+#
+# X3,Y4    X4,Y4
+
+2,1 5,4
+
+
+if(Shape>0) {
+Object[Object:count()+1,string]="triangle"
+}
+
+if(Shape==1) {
+Screen:egpTriangle(Int2,(vec2(V3:x(),V4:y()+1)*(Screen:egpSize()/(Grid)))+(vec2(-1,1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V4:x(),V4:y()+1)*(Screen:egpSize()/(Grid))+(vec2(1,1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V4:x(),V3:y()+1)*(Screen:egpSize()/(Grid))+(vec2(1,-1)*(Screen:egpSize()/(2*(Grid+1)))))
+
+}
+if(Shape==2) {
+Screen:egpTriangle(Int2,(vec2(V3:x(),V3:y()+1)*(Screen:egpSize()/(Grid)))+(vec2(-1,-1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V3:x(),V4:y()+1)*(Screen:egpSize()/(Grid))+(vec2(-1,1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V4:x(),V4:y()+1)*(Screen:egpSize()/(Grid))+(vec2(1,1)*(Screen:egpSize()/(2*(Grid+1)))))
+
+}
+if(Shape==3) {
+Screen:egpTriangle(Int2,(vec2(V3:x(),V4:y()+1)*(Screen:egpSize()/(Grid)))+(vec2(-1,1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V3:x(),V3:y()+1)*(Screen:egpSize()/(Grid))+(vec2(-1,-1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V4:x(),V3:y()+1)*(Screen:egpSize()/(Grid))+(vec2(1,-1)*(Screen:egpSize()/(2*(Grid+1)))))
+
+}
+if(Shape==4) {
+Screen:egpTriangle(Int2,(vec2(V3:x(),V3:y()+1)*(Screen:egpSize()/(Grid)))+(vec2(-1,-1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V4:x(),V3:y()+1)*(Screen:egpSize()/(Grid))+(vec2(1,-1)*(Screen:egpSize()/(2*(Grid+1)))),vec2(V4:x(),V4:y()+1)*(Screen:egpSize()/(Grid))+(vec2(1,1)*(Screen:egpSize()/(2*(Grid+1)))))
+
+}
+    
+    Screen:egpColor(Int2,vec(255,255,0))
+    
+Int2=Int2+1
+
+}
+
+
+
+
+Mode=!Mode
+Click = 1
+}
+
+if(owner():aimEntity()==entity():isWeldedTo()) {
+if(!Push & owner():keyAttack2()&Int2>(Grid-1)*(Grid-1)+3) {
+Screen:egpRemove(Int2-1)
+Object:remove(Object:count())
+Int2=Int2-1
+Push=1
+}
+if(!owner():keyAttack2()) {Push=0}
+
+}
+
+
+if(!owner():keyAttack1()) {
+Click = 0
+}
+
+}
+
+
+
+if(changed(Screen:egpNumObjects())) {Count=Screen:egpNumObjects()}
+
+
+if(changed((Count + !Valid) - (1 + ((Grid-1)^2)))) {
+I=0
+}
+if(Count> ((Grid-1)^2) + 1 + Valid) {
+    
+
+    if(I < (Count + !Valid) - (2 + ((Grid-1)^2))) {
+
+I=I+1
+    
+    
+    #Column = ceil(Cursor:x()/(ScrX/(Grid)))
+    #Row = floor(Cursor:y()/(ScrY/(Grid-1)))
+    
+    if(Screen:egpPos(I+2+(Grid-1)^2)!=vec2(0,0)&Screen:egpPos(I+2+(Grid-1)^2)!=vec2(0,0)) {Triangle=0}else{Triangle=1}
+    
+    if(Object[I,string]=="triangle") { 
+
+Vert1 = ceil(Screen:egpVertices(I+2+((Grid-1)^2))[1,vector2]/(ScrSize/(Grid)))
+Vert2 = ceil(Screen:egpVertices(I+2+((Grid-1)^2))[2,vector2]/(ScrSize/(Grid)))
+Vert3 = ceil(Screen:egpVertices(I+2+((Grid-1)^2))[3,vector2]/(ScrSize/(Grid)))
+
+print(I+","+Vert1:toString()+" "+Vert2:toString()+" "+Vert3:toString())
+ 
+   
+}
+
+if(Object[I,string]=="box") {
+IV = vec2(floor(Screen:egpPos(I+2+((Grid-1)^2)):x()/(ScrSize:x()/(Grid))),floor(Screen:egpPos(I+2+((Grid-1)^2)):y()/(ScrSize:y()/(Grid))))
+IS = floor(Screen:egpSize(I+2+((Grid-1)^2))/(ScrSize/(Grid)))
+
+V5=IV-vec2(floor(IS:x()/2),floor(IS:y()/2))
+V6=IV+vec2(ceil(IS:x()/2),ceil(IS:y()/2))
+
+
+
+print(I+","+V5:toString()+" "+V6:toString())
+
+if(V5:y()==V3:y()+1&V6:y()==V4:y()+1) {
+if(V5:x()!=V3:x()|V6:x()!=V4:x()) {
+
+if(V6:x()+1==V3:x()) {
+#V6:x()+1==V3:x()
+
+
+
+# min(V3:x(),V4:x(),V5:x(),V6:x())
+
+# min(V3:x(),V4:x(),V5:x(),V6:x()) + (V6:x() - V5:x()) + (V4:x() - V3:x())
+
+# V5:y()
+# V6:y()
+
+print("linking objects")
+Scale2=(Screen:egpSize()/(Grid+1))+(Screen:egpPos(max(V4:x(),V6:x())+((max(V4:y(),V6:y())-1)*(Grid-1))+1)-Screen:egpPos(min(V3:x(),V5:x())+((min(V3:y(),V5:y())-1)*(Grid-1))+1))
+Screen:egpBox(I+2+((Grid-1)^2),(Screen:egpPos(min(V3:x(),V5:x())+((min(V3:y(),V5:y())-1)*(Grid-1))+1)+(Scale2/2))-(Screen:egpSize()/(2*(Grid+1))),Scale2)
+
+vec2(min(V3:x(),V5:x()),min(V3:y(),V5:y()))
+vec2(max(V4:x(),V6:x()),max(V4:y(),V6:y()))    
+}
+}
+}
+
+
+
+}
+    
+} 
+    
+
+    
+    
+    
+    
+    
+} else {
+I=0
+}
+
+
