@@ -355,13 +355,22 @@ print(I+","+Vert1:toString()+" "+Vert2:toString()+" "+Vert3:toString())
 }
 
 if(Object[I,string]=="box") {
-IV = vec2(floor(Screen:egpPos(I+2+((Grid-1)^2)):x()/(ScrSize:x()/(Grid))),floor(Screen:egpPos(I+2+((Grid-1)^2)):y()/(ScrSize:y()/(Grid))))
-IS = floor(Screen:egpSize(I+2+((Grid-1)^2))/(ScrSize/(Grid)))
 
-V5=IV-vec2(floor(IS:x()/2),floor(IS:y()/2))
-V6=IV+vec2(ceil(IS:x()/2),ceil(IS:y()/2))
+#Edited
+#Scale = (Screen:egpSize()/(Grid+1))+(Screen:egpPos(V4:x()+(V4:y()*(Grid-1))+1)-Screen:egpPos(V3:x()+(V3:y()*(Grid-1))+1))
+#Pos = (Screen:egpPos(V3:x()+(V3:y()*(Grid-1))+1)+(Scale/2))-(Screen:egpSize()/(2*(Grid+1)))
+
+#(Scrsize/grid+1) + (scale/2) + maxVec - minvec
+#minVec + (Scale/2) - Scrsize/(2*Grid+1)
+
+#minvec = pos + (scrsize/(2*Grid+1))
+#maxvec = scale - (scrsize/grid+1) + minvec
 
 
+V5= round((Screen:egpPos(I+2+(Grid-1)^2) + (Screen:egpSize()/(2*(Grid+1))))/(Screen:egpSize()/(Grid-1)))
+V6= round((Screen:egpScale(I+2+(Grid-1)^2) - (Screen:egpSize()/(Grid+1)))/(Screen:egpSize()/(Grid-1)))
+    
+    
 
 print(I+","+V5:toString()+" "+V6:toString())
 
