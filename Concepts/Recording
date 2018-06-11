@@ -1,1 +1,26 @@
+@name Recording
+@inputs Rec Play
+@persist T T2 X Holo:array Ent:array Pos:array Ang:array
 
+if(first()){
+interval(10)
+}
+
+if(Rec) {
+if(T<5) {
+T=T+0.1
+
+while(X<Holo:count()) {
+X++
+
+#bigger movement rec faster
+#smaller movement rec slower
+
+if(Memory[X,string]:length()<1) {
+Memory[X,string]="("+ T +")"
+}
+
+}
+
+}
+}
