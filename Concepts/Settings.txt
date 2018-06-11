@@ -1,0 +1,55 @@
+@Name Settings
+@Persist File:string X Settings:table
+
+if(first()) {
+  runOnChat(1)
+  runOnFile(1)
+  
+  Settings[1,table]=table("GRID_SIZE",10)
+  Settings[2,table]=table("GRID_COLOR",vec())
+
+}
+
+interval(500)
+
+if(fileCanWrite() & chatClk(owner())) {
+  C=owner():lastSaid():explode(",")
+  
+  if(C[1,string]==".settings") {
+  
+  while(X<Settings:count()) {
+  X++
+  if(C[2,string]:lower()==Setting[X,table][1,string]:lower()) {
+  fileWrite("hammersettings.txt",File:replace())
+  }
+ }
+ 
+ }
+
+}
+
+
+if(fileCanLoad()) {
+fileLoad("hammersettings.txt")
+
+if(fileStatus()==1) {
+print("hammersettings.txt does not exist")
+print("creating new file")
+
+if(fileCanWrite()) {
+fileWrite("hammersettings.txt","GRID_SIZE = 10, GRID_COLOR = vec(255,0,0)")
+}
+
+}
+if(fileStatus()==2) {
+print("loading settings...")
+if(fileClk()&fileLoaded()) {
+print()
+}
+
+}
+
+}
+
+
+}
