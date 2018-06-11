@@ -1,0 +1,27 @@
+@Persist UnitsPerSecond Distance Pos:vector Pos2:vector X
+ 
+if(first()) {
+X = 10
+
+#10 milliseconds = 0.01 = 1/100 of a second
+#X milliseconds = X/1000
+#1000 milliseconds in 1 second
+
+}
+
+MinX = min(Pos1,Pos2)
+MinY = min(Pos1,Pos2)
+MinZ = min(Pos1,Pos2)
+
+MaxX = max(Pos1,Pos2)
+MaxY = max(Pos1,Pos2)
+MaxZ = max(Pos1,Pos2)
+
+#distance uses distance formula with Pos and Pos2
+
+Distance = Distance + sqrt( ((MaxX-MinX)^2) + ((MaxY-MinY)^2) + ((MaxZ-MinZ)^2) )
+
+#u/s = Distance / (X/1000)
+#u/s = Distance / (10/1000)
+
+UnitsPerSecond = Distance / (X/1000)
