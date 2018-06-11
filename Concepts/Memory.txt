@@ -1,1 +1,14 @@
+@Name memory+
+@Persist E2:array Index X
 
+if(first()) {
+runOnTick(1)
+}
+if(E2:count()<1) {
+findByClass(entity():type())
+findClipFromEntity(entity())
+E2=findToArray
+}
+else {
+
+}
