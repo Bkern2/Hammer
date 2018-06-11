@@ -1,7 +1,8 @@
 @name H.A.M.M.E.R
 @inputs Up Down
 @outputs Row Column Index
-@persist Scale2:vector2 Object:array V5:vector2 V6:vector2 Vert1:vector2 Vert2:vector2 Vert3:vector2 I Valid2 Search ScrSize:vector2 IV:vector2 IS:vector2 Count Shape Push3 Push2 Push Int2 Scale:vector2 Grid X Y ScrX ScrY Screen:wirelink Valid Int Cursor:vector2 Column Row Click Mode V1:vector2 V2:vector2 V3:vector2 V4:vector2 Pos:vector2
+@persist First Mode:gtable Triangle Scale2:vector2 Object:array V5:vector2 V6:vector2 Vert1:vector2 Vert2:vector2 Vert3:vector2 I Valid2 Search ScrSize:vector2 IV:vector2 IS:vector2 Count Shape Push3 Push2 Push Int2 Scale:vector2 Grid X Y ScrX ScrY Screen:wirelink Valid Int Cursor:vector2 Column Row Click Mode V1:vector2 V2:vector2 V3:vector2 V4:vector2 Pos:vector2
+
 #[
 VARIABLE DICTIONARY:
 
@@ -26,6 +27,14 @@ V6 =
 
 #FIRST
 if(first()|dupefinished()) {
+Mode=gTable("setting",1)
+#include "holocamera"
+runOnTick(1)
+}
+
+
+if(Mode[1,number]==0) {
+if(!First) {
 Grid = 10
 Int2 = (Grid-1)*(Grid-1)+3
 
@@ -45,10 +54,7 @@ ScrX=Screen:egpSize():x()
 ScrY=Screen:egpSize():y()
 ScrSize=Screen:egpSize()
 Valid=0
-
-runOnTick(1)
 }
-
 
 
 #GRID SIZE
@@ -412,5 +418,6 @@ vec2(max(V4:x(),V6:x()),max(V4:y(),V6:y()))
 } else {
 I=0
 }
-
+}
+else {First=0,Screen:egpClear()}
 
