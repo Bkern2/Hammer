@@ -13,7 +13,8 @@ return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 
 if(first()) {
 X=1
-signalSetGroup("holocam")
+signalSetGroup("camera")
+runOnSignal("memory",0,1)
 }
 
 interval(10)
