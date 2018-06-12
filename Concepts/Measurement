@@ -1,5 +1,31 @@
 @Persist UnitsPerSecond Distance Pos:vector Pos2:vector X
- 
+
+
+
+
+function speed(A:vector,B:vector) {
+
+X1 = min(A:x(),B:x())
+Y1 = min(A:y(),B:y())
+Z1 = min(A:z(),B:z())
+
+X2 = (A:x(),B:x())
+Y2 = (A:y(),B:y())
+Z2 = (A:z(),B:z())
+
+#distance uses distance formula with Pos and Pos2
+
+Distance = Distance + sqrt( ((X2-X1)^2) + ((Y2-Y1)^2) + ((Z2-Z1)^2) )
+UnitsPerSecond = Distance / (C/1000)
+
+}
+
+function getInterval() {
+if()
+return $Time
+}
+
+
 if(first()) {
 X = 10
 
@@ -8,20 +34,3 @@ X = 10
 #1000 milliseconds in 1 second
 
 }
-
-MinX = min(Pos1,Pos2)
-MinY = min(Pos1,Pos2)
-MinZ = min(Pos1,Pos2)
-
-MaxX = max(Pos1,Pos2)
-MaxY = max(Pos1,Pos2)
-MaxZ = max(Pos1,Pos2)
-
-#distance uses distance formula with Pos and Pos2
-
-Distance = Distance + sqrt( ((MaxX-MinX)^2) + ((MaxY-MinY)^2) + ((MaxZ-MinZ)^2) )
-
-#u/s = Distance / (X/1000)
-#u/s = Distance / (10/1000)
-
-UnitsPerSecond = Distance / (X/1000)
