@@ -1,13 +1,13 @@
 @name Holocamera
 @inputs Rec Play
-@persist Holo:array Ent:array X
+@persist Holo:array Ent:array X Y Z Pos:table
 
 #FUNCTIONS
 function vector scaledPos(E:entity,Scale) {
 return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 }
 
-#CODE
+#MATH EQUATIONS
 #pos = ([E2Pos + hoverHeight] + [propPos - E2Pos]) / scale
 #scale = vec(1,1,1)/scale
 
@@ -35,12 +35,15 @@ X++
 }
 elseif(Rec){ 
 
-if(Time/0.01>perf()) {
+if(Holo:count()>perf()) {
 
 
 }
 
-while(Time<5 && perf()) {
+while(Y<Holo:count() && perf()) {
+Y++
+
+
 
 }
 
