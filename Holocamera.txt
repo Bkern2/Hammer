@@ -11,9 +11,7 @@ return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 #pos = ([E2Pos + hoverHeight] + [propPos - E2Pos]) / scale
 #scale = vec(1,1,1)/scale
 
-if(first()) {
-X=1
-}
+if(first()) {X=1}
 
 interval(10)
 
@@ -22,6 +20,7 @@ findByClass("prop_physics")
 findClipFromEntity(entity())
 Ent=findToArray()
 }
+
 elseif(!Holo[X,entity]:isValid() & Ent[X,entity]:isValid()) {
 
 holoCreate(X,scaledPos(Ent[X,entity],10))
@@ -42,7 +41,7 @@ if(Holo:count()>perf()) {
 
 while(Y<Holo:count() && perf()) {
 Y++
-
+if(scaledPos(Ent[X,entity]))
 
 
 }
