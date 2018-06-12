@@ -1,15 +1,11 @@
 @name Holocamera
 @inputs Rec Play
-@persist Holo:array Ent:array X Y Z Pos:table
+@persist Holo:array Ent:array X Y Z Pos:table 
 
 #FUNCTIONS
 function vector scaledPos(E:entity,Scale) {
 return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 }
-
-#MATH EQUATIONS
-#pos = ([E2Pos + hoverHeight] + [propPos - E2Pos]) / scale
-#scale = vec(1,1,1)/scale
 
 if(first()) {
 X=1
@@ -17,7 +13,7 @@ signalSetGroup("camera")
 runOnSignal("memory",0,1)
 }
 
-interval(10)
+interval(10-())
 
 if(Ent:count()<1) {
 findByClass("prop_physics")
@@ -39,7 +35,9 @@ X++
 elseif(Rec){ 
 
 if(Holo:count()>perf()) {
+#if count > oplimit & datasignal sent
 
+#send signal to memory
 
 }
 
