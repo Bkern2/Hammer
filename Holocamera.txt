@@ -11,7 +11,10 @@ return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 #pos = ([E2Pos + hoverHeight] + [propPos - E2Pos]) / scale
 #scale = vec(1,1,1)/scale
 
-if(first()) {X=1}
+if(first()) {
+X=1
+signalSetGroup("holocam")
+}
 
 interval(10)
 
