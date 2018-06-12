@@ -1,1 +1,23 @@
+#[
+"every 0.15ms, the ops used - the softquota is added to a counter
+if higher than hard quota, e2 shuts down." (Wiremod Wiki)
 
+note: I tend to run expressions every 0.10ms, which means that it is slightly more demanding
+
+
+
+TIPS:
+replacing if with elseif when possible (if = this true, elseif = previous statement was false & this true)
+
+long tasks run by while will cause tick quota to exceed
+
+3448 is the max amount of operations allowed in a tick
+
+perf()  limits while loops to prevent exceeding quota
+
+more variables and functions instead of repeating operations
+
+
+
+
+]#
