@@ -1,34 +1,52 @@
 @name Holocamera
+@inputs Rec Play
 @persist Holo:array Ent:array X
 
+#FUNCTIONS
 function vector scaledPos(E:entity,Scale) {
 return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 }
 
+#CODE
 #pos = ([E2Pos + hoverHeight] + [propPos - E2Pos]) / scale
 #scale = vec(1,1,1)/scale
 
 if(first()) {
 X=1
-interval(10)
 }
+
+interval(10)
 
 if(Ent:count()<1) {
 findByClass("prop_physics")
 findClipFromEntity(entity())
 Ent=findToArray()
 }
+elseif(!Holo[X,entity]:isValid() & Ent[X,entity]:isValid()) {
 
-
-if(!Holo[X,entity]:isValid() & Ent[X,entity]:isValid()) {
-holoCreate(X,(entity():pos()+vec(0,0,10))+((Ent[X,entity]:pos()-entity():pos())/10))
-holoPos(X,(entity():pos()+vec(0,0,10))+((Ent[X,entity]:pos()-entity():pos())/10))
+holoCreate(X,scaledPos(Ent[X,entity],10))
 holoModel(X,Ent[X,entity]:model())
 holoAng(X,Ent[X,entity]:angles())
 holoScale(X,vec(1,1,1)/10)
 
 Holo[X,entity]=holoEntity(X)
 
-X=X+1
+X++
 }
+elseif(Rec){ 
+
+if(Time/0.01>perf()) {
+
+
+}
+
+while(Time<5 && perf()) {
+
+}
+
+}
+
+
+
+
 
