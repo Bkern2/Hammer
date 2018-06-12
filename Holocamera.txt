@@ -2,24 +2,6 @@
 @inputs Rec Play
 @persist Holo:array Ent:array X Y Z Pos:table 
 
-#[
-
-WHAT COUNTS AS AN OPERATION (op):
-
-default maximum number of operations executed per 15 milliseconds is 3488
-
-definition in math:
-"an operation is a calculation from zero or more input values (called operands) to an output value."
-ex: 1*2, operation is multiply
-
-definition relative to this:
-from observations, seems to be number of tasks
-
-     
-
-
-]#
-
 #MATHEMATICAL FUNCTIONS (will not run unless requested)
 function vector scaledPos(E:entity,Scale) {
 return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
