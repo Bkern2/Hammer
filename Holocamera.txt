@@ -2,7 +2,7 @@
 @inputs Rec Play
 @persist Holo:array Ent:array X Y Z Pos:table 
 
-#MATHEMATICAL FUNCTIONS (will not run unless requested)
+#MATHEMATICAL FUNCTIONS
 function vector scaledPos(E:entity,Scale) {
 return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 }
