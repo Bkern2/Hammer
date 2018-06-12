@@ -40,9 +40,17 @@ if(Holo:count()>perf()) {
 }
 
 while(Y<Holo:count() && perf()) {
-Y++
-if(scaledPos(Ent[X,entity]))
+Y= Y + 1
+T = decodeVon(Pos[Y,string])
+V = T[T:count(),table][2,vector]
 
+if(scaledPos(Ent[X,entity]):distance(V)>0) {
+#distance = square root( ((A:x()-B:x())^2)+(A:y()-B:y())^2)+(A:z()-B:z())^2))
+
+holoPos(Y,V)
+
+
+}
 
 }
 
