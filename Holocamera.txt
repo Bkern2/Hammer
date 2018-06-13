@@ -1,8 +1,7 @@
 @name Holocamera
 @inputs Rec Play
-@persist Holo:array Ent:array X Y Z Pos:table E2:array Time StartTime Find
-
-#MATHEMATICAL FUNCTIONS
+@persist Holo:array Ent:array X Y Z Pos:table E2:array Time StartTime 
+#FUNCTIONS
 function vector scaledPos(E:entity,Scale) {
 return entity():pos()+vec(0,0,10)+((E:pos()-entity():pos())/Scale)
 }
@@ -24,11 +23,7 @@ interval(10)
 #interval(10 - delay between int and fileclk)
 
 #FIND COMMANDS
-
-
 if(realtime()>(Time+findUpdateRate())) {
-
-Find = !Find
 
 if(Find) {
 findByClass("gmod_wire_expression2")
@@ -36,37 +31,33 @@ findSortByDistance(entity():pos())
 if(E2:count()!=findToArray():count()) {E2=findToArray():add(array(entity()))}
 Time=realtime()
 }
-
 elseif(Ent:count()<1) {
 findByClass("prop_physics")
 findClipFromClass("gmod_wire_expression2")
 if(Ent:count()!=findToArray():count()) {Ent=findToArray()}
 Time=realtime()
-
 }
+
+Find = !Find
 
 if(changed(E2:count())) {print("e2:"+E2:count())}
 if(changed(Ent:count())) {print("ent:"+Ent[Ent:count(),entity]:id())}
 }
-
+}
 
 
 #CREATE OBJECT IN HOLO AT INDEX (X)
 elseif(!Holo[X,entity]:isValid() & Ent[X,entity]:isValid()) {
 
-#holoPosition() / holoScale() / holoAngle() / holoColor() / holoModel() / holoMaterial()
 Holo[X,entity]=holoCreate(X,scaledPos(Ent[X,entity],10),vec(1,1,1)/10,Ent[X,entity]:angles(),Ent[X,entity]:getColor())
 holoModel(X,Ent[X,entity]:model())
 holoMaterial(X,Ent[X,entity]:getMaterial())
 
-
-
 }
 elseif(holoCanCreate()) {X++}
-if(!holoCanCreate()) {
-    print("reached max" + (X+1))
-    
-    
+
+if(holoRemainingSpawns()<1) {
+    print("reached max" + (X+1):toString())
     }
 
 #RECORD POSITIONS
@@ -83,7 +74,6 @@ if(scaledPos(Ent[X,entity],10):distance(V)>10) {
 #do not define values inside loop unless needed
 
 holoPos(Y,V)
-
 
 }
 }
@@ -105,8 +95,7 @@ T2 = T:clone():concat(Index,Y+1,Holo:count()):explode("")
 dsSend(E2[Index:toNumber(),entity]:id():toString(),"memory",vonEncode(T))
 
 }
-
-}
+}else{First=1}
 
 
 
