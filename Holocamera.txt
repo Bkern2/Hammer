@@ -42,7 +42,7 @@ Find = !Find
 
 if(changed(E2:count())) {print("e2:"+E2:count())}
 if(changed(Ent:count())) {print("ent:"+Ent[Ent:count(),entity]:id())}
-}
+
 }
 
 
